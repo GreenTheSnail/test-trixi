@@ -12,4 +12,5 @@ public interface ObecService {
 
     List<Obec> findAll();
 
+    Obec findById(long id);
 }

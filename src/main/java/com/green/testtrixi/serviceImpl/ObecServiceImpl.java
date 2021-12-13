@@ -28,4 +28,9 @@ public class ObecServiceImpl implements ObecService {
         return repository.findAll();
     }
 
+    @Override
+    public Obec findById(long id) {
+       return repository.getById(id);
+    }
+
 }

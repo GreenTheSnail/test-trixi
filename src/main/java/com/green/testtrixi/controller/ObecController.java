@@ -1,6 +1,8 @@
 package com.green.testtrixi.controller;
 
+import com.green.testtrixi.model.CastObce;
 import com.green.testtrixi.model.Obec;
+import com.green.testtrixi.serviceImpl.CastObceServiceImpl;
 import com.green.testtrixi.serviceImpl.ObecServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +27,12 @@ public class ObecController {
 
     private final ObecServiceImpl obecService;
 
+    private final CastObceServiceImpl castObceService;
+
     @Autowired
-    private ObecController(ObecServiceImpl obecService) {
+    private ObecController(ObecServiceImpl obecService, CastObceServiceImpl castObceService) {
         this.obecService = obecService;
+        this.castObceService = castObceService;
     }
 
     @GetMapping("/start")
@@ -88,10 +93,12 @@ public class ObecController {
 
     public void processXMLFile(String file) {
         try {
+            System.out.println("Processing started");
             InputStream is = new FileInputStream(file);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(is);
+            System.out.println("Scanning for all Obec elements");
             NodeList obecNodes = document.getElementsByTagName("vf:Obec");
             for (int i = 0; i < obecNodes.getLength(); i++) {
                 Obec obec = new Obec();
@@ -100,7 +107,22 @@ public class ObecController {
                 obec.setId(Long.parseLong(ids.item(0).getTextContent()));
                 NodeList names = element.getElementsByTagName("obi:Nazev");
                 obec.setName(names.item(0).getTextContent());
+                System.out.println("Saving Obec with name " + obec.getName());
                 obecService.save(obec);
+            }
+            System.out.println("Scanning for all CastObce elements");
+            NodeList obecCastNodes = document.getElementsByTagName("vf:CastObce");
+            for (int i = 0; i < obecCastNodes.getLength(); i++) {
+                CastObce castObce = new CastObce();
+                Element element = (Element) obecCastNodes.item(i);
+                NodeList ids = element.getElementsByTagName("coi:Kod");
+                castObce.setId(Long.parseLong(ids.item(0).getTextContent()));
+                NodeList names = element.getElementsByTagName("coi:Nazev");
+                castObce.setName(names.item(0).getTextContent());
+                NodeList obecIds = element.getElementsByTagName("obi:Kod");
+                castObce.setObec(obecService.findById(Long.parseLong(obecIds.item(0).getTextContent())));
+                System.out.println("Saving CastObce with name " + castObce.getName());
+                castObceService.save(castObce);
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
