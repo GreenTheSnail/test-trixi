@@ -1,69 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        td:first-child,th:first-child {
-            background-color: aliceblue;
-        }
-    </style>
-    <title>Rates</title>
+    <title>Results</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div th:insert="blocks/header :: header"></div>
 <div class="container mt-5">
-    <h1>Rates</h1>
-    <table>
-        <tr>
-            <th>Short name</th>
-            <th>Valid From</th>
-            <th>Name</th>
-            <th>Country</th>
-            <th>Amount</th>
-            <th>Value buy</th>
-            <th>Value sell</th>
-            <th>Value mid</th>
-            <th>Current buy</th>
-            <th>Current sell</th>
-            <th>Current mid</th>
-            <th>Move</th>
-            <th>Cnb mid</th>
-            <th>Version</th>
-        </tr>
-    <tr th:each="el : ${rates}">
-            <td th:text="${el.shortName}"></td>
-            <td th:text="${el.validFrom}"></td>
-            <td th:text="${el.name}"></td>
-            <td th:text="${el.country}"></td>
-            <td th:text="${el.amount}"></td>
-            <td th:text="${el.valBuy}"></td>
-            <td th:text="${el.valSell}"></td>
-            <td th:text="${el.valMid}"></td>
-            <td th:text="${el.currBuy}"></td>
-            <td th:text="${el.currSell}"></td>
-            <td th:text="${el.currMid}"></td>
-            <td th:text="${el.move}"></td>
-            <td th:text="${el.cnbMid}"></td>
-            <td th:text="${el.version}"></td>
-
-    </tr>
-    </table>
+    <h1>Results</h1>
+    <div th:each="el : ${results}" class="alert alert-info mt-2">
+        <h6>Name: <span th:text="${el.name}"></span></h6>
+        <h6>Id: <span th:text="${el.id}"></span></h6>
+        <a th:href="${el.id} + '/parts'">Show parts</a>
+    </div>
+    <a th:href="'/'">Back</a>
+    <br>
+    <br>
 </div>
 </body>
 </html>
-
-
-

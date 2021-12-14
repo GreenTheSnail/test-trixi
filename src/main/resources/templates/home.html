@@ -10,7 +10,16 @@
 <div class="container mt5">
   <h1>Welcome!</h1>
 <br>
-    <h4>Use the header to get exchange rates.</h4>
+    <form action="/start" method="get">
+    <h4>You can enter your URL to download ZIP file here, or just use the default one.</h4>
+    <input type="text" name="url" placeholder="Enter URL here" class="form-control">
+        <br>
+        <input type="submit" value="Start" />
+    </form>
+    <br>
+    <form action="/start" method="get">
+        <input type="submit" value="Start with default URL" />
+    </form>
 </div>
 </body>
 </html>

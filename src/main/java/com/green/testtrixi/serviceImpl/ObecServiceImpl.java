@@ -30,7 +30,7 @@ public class ObecServiceImpl implements ObecService {
 
     @Override
     public Obec findById(long id) {
-       return repository.getById(id);
+        return repository.getById(id);
     }
 
 }

@@ -2,10 +2,7 @@ package com.green.testtrixi.serviceImpl;
 
 import com.green.testtrixi.model.CastObce;
 import com.green.testtrixi.model.CastObceRepo;
-import com.green.testtrixi.model.Obec;
-import com.green.testtrixi.model.ObecRepo;
 import com.green.testtrixi.service.CastObceService;
-import com.green.testtrixi.service.ObecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +24,9 @@ public class CastObceServiceImpl implements CastObceService {
     }
 
     @Override
-    public List<CastObce> findAll() {
-        return repository.findAll();
+    public List<CastObce> getAllByObecId(Long id) {
+        return repository.getCastObcesByObecId(id);
     }
+
 
 }

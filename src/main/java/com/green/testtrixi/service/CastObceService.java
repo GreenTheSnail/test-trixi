@@ -11,6 +11,6 @@ public interface CastObceService {
 
     void save(CastObce castObce);
 
-    List<CastObce> findAll();
+    List<CastObce> getAllByObecId(Long id);
 
 }

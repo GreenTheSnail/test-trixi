@@ -1,16 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Error page</title>
+    <title>Parts</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div th:insert="blocks/header :: header"></div>
-<div class="container mt5">
-    <br>
-    <h4 th:text="${message}"></h4>
+<div class="container mt-5">
+    <h1>Parts</h1>
+    <div th:each="el : ${parts}" class="alert alert-info mt-2">
+        <h6>Name: <span th:text="${el.name}"></span></h6>
+        <h6>Id: <span th:text="${el.id}"></span></h6>
+    </div>
+    <a th:href="'/show'">Back</a>
 
+    <br>
+    <br>
 </div>
 </body>
 </html>

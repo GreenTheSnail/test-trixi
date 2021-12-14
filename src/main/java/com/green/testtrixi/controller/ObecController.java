@@ -6,8 +6,10 @@ import com.green.testtrixi.serviceImpl.CastObceServiceImpl;
 import com.green.testtrixi.serviceImpl.ObecServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -35,16 +37,24 @@ public class ObecController {
         this.castObceService = castObceService;
     }
 
+    @GetMapping("/show")
+    public String all(Model model) {
+        model.addAttribute("results", obecService.findAll());
+        return "results";
+    }
+
     @GetMapping("/start")
-    public String rates() {
-        String url = "https://www.smartform.cz/download/20210331_OB_573060_UZSZ.xml.zip";
+    public String results(@RequestParam(required = false) String url) {
+        if(url == null || url.equals("") || url.isEmpty()){
+            url = "https://www.smartform.cz/download/20210331_OB_573060_UZSZ.xml.zip";
+        }
         String fileLoc = System.getProperty("user.dir");
         String fileName = "/newFile.zip";
 
         download(url, fileLoc + fileName);
         String filePath = unzip(fileLoc + fileName, fileLoc);
         processXMLFile(filePath);
-        return "results";
+        return "redirect:/show";
     }
 
 
