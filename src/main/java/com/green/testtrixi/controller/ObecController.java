@@ -1,9 +1,5 @@
 package com.green.testtrixi.controller;
 
-import com.green.testtrixi.model.CastObce;
-import com.green.testtrixi.model.Obec;
-import com.green.testtrixi.service.FileService;
-import com.green.testtrixi.serviceImpl.CastObceServiceImpl;
 import com.green.testtrixi.serviceImpl.FileServiceImpl;
 import com.green.testtrixi.serviceImpl.ObecServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
